@@ -4,8 +4,7 @@ go 1.20
 
 require (
 	github.com/wasmCloud/actor-tinygo v0.0.0-00010101000000-000000000000
-	github.com/wasmCloud/provider-sdk-go v0.0.0-20230120163157-14cfe1cb919c
-	github.com/wasmcloud/interfaces/core/tinygo v0.0.0-20221212211611-51d99ad3427c
+	github.com/wasmCloud/provider-sdk-go v0.0.0-00010101000000-000000000000
 	github.com/wasmcloud/tinygo-msgpack v0.1.4
 )
 
@@ -30,3 +29,5 @@ require (
 replace github.com/wasmCloud/actor-tinygo => ../actor-tinygo
 
 replace github.com/wasmcloud/actor-tinygo/core => ../actor-tinygo/core
+
+replace github.com/wasmCloud/provider-sdk-go => ../provider-sdk-go

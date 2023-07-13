@@ -1,10 +1,14 @@
 package ping_pong
 
-import actor "github.com/wasmCloud/actor-tinygo"
+type JordanRashPingpongTypesPong = string
+type JordanRashPingpongPingpongPong = string
 
-type JordanRashPingpongTypesPong string
-type JordanRashPingpongPingpongPong string
+var jordan_rash_pingpong_pingpong ExportsJordanRashPingpongPingpong = nil
+
+func SetExportsJordanRashPingpongPingpong(i ExportsJordanRashPingpongPingpong) {
+	jordan_rash_pingpong_pingpong = i
+}
 
 type ExportsJordanRashPingpongPingpong interface {
-	Ping(ctx *actor.Context) (string, error)
+	Ping() string
 }

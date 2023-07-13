@@ -3,10 +3,10 @@ package main
 //go:generate wit-bindgen tiny-go wit/ --out-dir gen/
 
 import (
-	"fmt"
-	provider "github.com/wasmCloud/provider-sdk-go"
-	core "github.com/wasmcloud/interfaces/core/tinygo"
 	"time"
+
+	provider "github.com/wasmCloud/provider-sdk-go"
+	wasmcloud_core "github.com/wasmCloud/provider-sdk-go/core"
 )
 
 var (
@@ -35,19 +35,25 @@ func healthCheckMsg() string {
 	return "THE PING PONG provider!"
 }
 
-func handleNewLink(linkdef core.LinkDefinition) error {
-	go sendPings(linkdef.ActorId)
-	return nil
+// func handleNewLink(linkdef wasmcloud_core.WasmcloudCoreTypesLinkDefinition) error {
+func handleNewLink(linkdef wasmcloud_core.WasmcloudCoreTypesLinkDefinition) error {
+	// _, err := p.ToActor(linkdef.ActorId, []byte("ping"), "PingPong.Ping")
+	// if err != nil {
+	// 	p.Logger.Error(err, "from "+linkdef.ActorId)
+	// }
+	//
+	// return err
+	return sendPings(linkdef.ActorId)
 }
 
-func sendPings(aId string) {
+func sendPings(aId string) error {
 	for {
-		b, err := p.ToActor(aId, nil, "PingPong.Ping")
+		_, err := p.ToActor(aId, []byte("ping"), "PingPong.Ping")
 		if err != nil {
-			panic(err)
-		} else {
-			fmt.Println(b)
+			p.Logger.Error(err, "from "+aId)
 		}
 		time.Sleep(1 * time.Second)
 	}
+
+	return nil
 }

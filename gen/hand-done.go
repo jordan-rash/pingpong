@@ -36,16 +36,14 @@ func (r *PingPongReceiver) Dispatch(ctx *actor.Context, svc interface{}, message
 	switch message.Method {
 	case "Ping":
 		{
-			var resp JordanRashPingpongTypesPong
-
 			var sizer msgpack.Sizer
 			size_enc := &sizer
-			resp.MEncode(size_enc)
+			size_enc.WriteString("pong")
 			buf := make([]byte, sizer.Len())
 			encoder := msgpack.NewEncoder(buf)
 			enc := &encoder
-			resp.MEncode(enc)
-			return &actor.Message{Method: "HttpClient.Request", Arg: buf}, nil
+			enc.WriteString("pong")
+			return &actor.Message{Method: "PingPong.Ping", Arg: buf}, nil
 		}
 	default:
 		return nil, actor.NewRpcError("MethodNotHandled", "PingPong."+message.Method)
